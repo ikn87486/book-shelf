@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>本棚アプリ</title>
+</head>
+<body>
+    <h1>本棚アプリ</h1>
+    <form action = "/add" method = "POST">
+        <input type="text" name="book_name" placeholder="追加する本の名前を入力" redirect>
+        <button type="submit">追加する</button>
+    </form>
+    
+    <h1>登録されている本の一覧</h1>
+    <ul>
+        {% for row in books %}
+            <li>ID: {{ row[0] }} / 作品名: {{ row[1] }} / 登録日:  {{row[2] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

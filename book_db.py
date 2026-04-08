@@ -1,5 +1,6 @@
     # from flask import Flask
 import sqlite3
+from datetime import datetime
 DB_NAME = 'bookshelf.db'
 
 def create_table():
@@ -9,7 +10,8 @@ def create_table():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Book (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
+            name TEXT NOT NULL,
+            date TEXT
         )
     ''')
     connect.commit()
@@ -20,7 +22,8 @@ def add_book(name):
     #connect to database and table
     connect = sqlite3.connect(DB_NAME)
     cursor = connect.cursor()
-    cursor.execute('INSERT INTO Book (name) VALUES (?)', (name,))
+    now_time = datetime.now().strftime("%Y/%m/%d %H:%M")
+    cursor.execute('INSERT INTO Book (name, date) VALUES (?, ?)', (name, now_time))
     connect.commit()
     connect.close()
 

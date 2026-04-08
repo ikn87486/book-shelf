@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect
 import book_db
 
 app = Flask(__name__)
@@ -10,17 +10,14 @@ book_db.create_table()
 def index():
     # 1. 裏側の機能を使って、データベースから本の一覧を取得
     books_data = book_db.get_book()
-    
-    # 2. ブラウザに表示するための「文字」を組み立てる
-    result_text = "<h1>登録されている本の一覧</h1>"
-    
-    for row in books_data:
-        # <p> は段落（改行）を表す簡単な目印です
-        result_text += f"<p>ID: {row[0]} / 作品名: {row[1]}</p>"
-        
-    # 3. 組み立てた文字をブラウザに返す！
-    return result_text
+    return render_template("index.html", books = books_data)
 
+@app.route("/add", methods=["POST"])
+def add():
+    user_input = request.form["book_name"]
+    book_db.add_book(user_input)
+
+    return redirect("/")
 # このファイルが実行されたら、Webサーバーを起動する
 if __name__ == "__main__":
     app.run(debug=True)

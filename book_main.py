@@ -13,13 +13,13 @@ def main():
         print("--- 実行後のデータベースの中身 ---")
         books_data = book_db.get_book()
         for row in books_data:
-            print(f"ID: {row[0]}, 作品名: {row[1]}")
+            print(f"ID: {row[0]}, 作品名: {row[1]}, 追加日: {row[2]}")
     
     elif user_select == "delete":
         print("--- 実行前のデータベースの中身 ---")
         books_data = book_db.get_book()
         for row in books_data:
-            print(f"ID: {row[0]}, 作品名: {row[1]}")
+            print(f"ID: {row[0]}, 作品名: {row[1]}, 追加日: {row[2]}")
 
         user_input = input("削除する本のid")
         book_db.delete_book(user_input)
@@ -29,7 +29,7 @@ def main():
         print("--- 実行後のデータベースの中身 ---")
         books_data = book_db.get_book()
         for row in books_data:
-            print(f"ID: {row[0]}, 作品名: {row[1]}")
+            print(f"ID: {row[0]}, 作品名: {row[1]}, 追加日: {row[2]}")
     else:
         print("入力が正しくありません")
 
